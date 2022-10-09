@@ -4,65 +4,65 @@
  2 Obter o endereco do usuario pelo id
 */
 
-const util = require('util')
-const obterEnderecoAsync = util.promisify(obterEndereco)
+const util = require('util');
+const obterEnderecoAsync = util.promisify(obterEndereco);
 
 function obterUsuario() {
-    return new Promise(function resolvePromise(resolve, reject) {
-        setTimeout(() => {
-            // return reject(new Error("DEU RUIM"))
-            return resolve({
-                id: 1,
-                nome: 'Aladin',
-                dataNascimento: new Date()
-            })
-        }, 1000)
-    })
+  return new Promise(function resolvePromise(resolve, reject) {
+    setTimeout(() => {
+      // return reject(new Error("DEU RUIM"))
+      return resolve({
+        id: 1,
+        nome: 'Aladin',
+        dataNascimento: new Date(),
+      });
+    }, 1000);
+  });
 }
 
 function obterTelefone(idUsuario) {
-    return new Promise(function resolvePromise(resolve, reject) {
-        setTimeout(() => {
-            return resolve({
-                telefone: '222222222',
-                ddd: 11
-            })
-        }, 2000)
-    })
+  return new Promise(function resolvePromise(resolve, reject) {
+    setTimeout(() => {
+      return resolve({
+        telefone: '222222222',
+        ddd: 11,
+      });
+    }, 2000);
+  });
 }
 
 function obterEndereco(idUsuario, callback) {
-    setTimeout(() => {
-        return callback(null, {
-            rua: 'dos bobos',
-            numero: 0
-        })
-    }, 2000)
+  setTimeout(() => {
+    return callback(null, {
+      rua: 'dos bobos',
+      numero: 0,
+    });
+  }, 2000);
 }
 
-main()
+main();
 async function main() {
-    try {
-        console.time('medida-promise')
-        const usuario = await obterUsuario()
-        // const telefone = await obterTelefone(usuario.id)
-        // const endereco = await obterEnderecoAsync(usuario.id)
-        const resultado = await Promise.all([
-            obterTelefone(usuario.id),
-            obterEnderecoAsync(usuario.id)
-        ])
+  try {
+    console.time('medida-promise');
+    const usuario = await obterUsuario();
+    // const telefone = await obterTelefone(usuario.id)
+    // const endereco = await obterEnderecoAsync(usuario.id)
+    const resultado = await Promise.all([
+      obterTelefone(usuario.id),
+      obterEnderecoAsync(usuario.id),
+    ]);
 
-        const telefone = resultado[0]
-        const endereco = resultado[1]
-        console.log(`
+    const telefone = resultado[0];
+    const endereco = resultado[1];
+    console.log(`
             nome: ${usuario.nome}
             endereço: ${endereco.rua}, ${endereco.numero}
             telefone: (${telefone.ddd}) ${telefone.telefone} 
-        `)
-        console.timeEnd('medida-promise')
-    }catch(error) {
-        console.error("DEU RUIM", error)
-    }
+        `);
+    console.timeEnd('medida-promise');
+  } catch (error) {
+    console.error('DEU RUIM', error);
+  }
 }
 
 // const usuarioPromise = obterUsuario()
@@ -94,7 +94,7 @@ async function main() {
 //         console.log(`
 //                 nome: ${resultado.usuario.nome}
 //                 endereço: ${resultado.endereco.rua}, ${resultado.endereco.numero}
-//                 telefone: (${resultado.telefone.ddd}) ${resultado.telefone.telefone} 
+//                 telefone: (${resultado.telefone.ddd}) ${resultado.telefone.telefone}
 //             `)
 //     }).catch(function (error) {
 //         console.error("DEU RUIM", error)
@@ -119,7 +119,7 @@ async function main() {
 //             console.log(`
 //                 nome: ${usuario.nome}
 //                 endereço: ${endereco.rua}, ${endereco.numero}
-//                 telefone: (${telefone.ddd}) ${telefone.telefone} 
+//                 telefone: (${telefone.ddd}) ${telefone.telefone}
 //             `)
 //         })
 //     })
