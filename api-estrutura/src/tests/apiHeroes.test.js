@@ -62,7 +62,7 @@ describe('API Heroes test suite', function ()  {
             }
         })
         assert.deepEqual(result.statusCode, 200) 
-        assert.deepEqual(JSON.parse(result.payload).nModified, 1)
+        assert.deepEqual(JSON.parse(result.payload).modifiedCount, 1)
 
     })
     it('remover /herois/{id}', async () => {
@@ -71,7 +71,7 @@ describe('API Heroes test suite', function ()  {
             url: `/herois/${MOCK_ID}` 
         })
         assert.deepEqual(result.statusCode, 200) 
-        assert.deepEqual(JSON.parse(result.payload).n, 1)
+        assert.deepEqual(JSON.parse(result.payload).deletedCount, 1)
     })
 })
 
